@@ -50,11 +50,15 @@
     <Compile Include="CatClicker.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ControlHelper.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +99,9 @@
     <Content Include="Images\teine.jpg" />
     <Content Include="Images\kolmas.jpg" />
     <None Include="Resources\tamm-cat.gif" />
+    <None Include="Resources\stare.bmp" />
+    <None Include="Resources\stare.jpg" />
+    <None Include="Resources\evil.jpg" />
     <Content Include="Sound\mixkit.wav" />
   </ItemGroup>
   <ItemGroup>

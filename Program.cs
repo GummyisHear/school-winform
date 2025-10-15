@@ -16,7 +16,7 @@ namespace FormElements
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CustomForm());
+            Application.Run(new CatClicker());
         }
     }
 }
