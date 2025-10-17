@@ -63,6 +63,26 @@ namespace FormElements.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap evil {
+            get {
+                object obj = ResourceManager.GetObject("evil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap stare {
+            get {
+                object obj = ResourceManager.GetObject("stare", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tamm_cat {
             get {
                 object obj = ResourceManager.GetObject("tamm-cat", resourceCulture);
