@@ -13,7 +13,7 @@ namespace FormElements
         public const int WindowHeight = 800;
 
         public PictureBox PictureBox;
-        public Label Label;
+        public Label ClickLabel;
 
         private TabControl _tabControl;
         private TabPage _tabPage1;
@@ -239,10 +239,10 @@ namespace FormElements
             //
             // Label
             //
-            Label = new Label();
-            Label.Text = "Click the Cat!";
-            Label.Font = new Font(FontFamily.GenericSansSerif, 25, FontStyle.Regular);
-            Label.AutoSize = true;
+            ClickLabel = new Label();
+            ClickLabel.Text = "Click the Cat!";
+            ClickLabel.Font = new Font(FontFamily.GenericSansSerif, 25, FontStyle.Regular);
+            ClickLabel.AutoSize = true;
 
             // Progress bar
             _progressBar = new ProgressBar();
@@ -261,10 +261,10 @@ namespace FormElements
             _timer.Start();
 
             Controls.Add(_progressBar);
-            Controls.Add(Label);
+            Controls.Add(ClickLabel);
             Controls.Add(PictureBox);
 
-            Label.Location = new Point(CenterX(Label.Width), 100);
+            ClickLabel.Location = new Point(CenterX(ClickLabel.Width), 100);
 
             ResumeLayout(true);
         }
@@ -287,8 +287,7 @@ namespace FormElements
             pictureBox.Width = (int)(pictureBox.Width * 0.95);
             pictureBox.Height = (int)(pictureBox.Height * 0.95);
             pictureBox.Location = new Point(Random.Next(0, WindowWidth - pictureBox.Width), Random.Next(0, WindowHeight - pictureBox.Height));
-            Score++;
-            UpdateScore();
+            ClickLabel.Text = $"{++Score} Klikk";
 
             _timerValue = (int)(_timerValue * 0.95f);
             _timerValue = Math.Max(_timerMaxValue / 2, _timerValue);
@@ -328,11 +327,6 @@ namespace FormElements
 
             Score = 0;
             ReturnMainMenu();
-        }
-
-        private void UpdateScore()
-        {
-            Label.Text = $"{Score} Klikk";
         }
 
         private int CenterY(int height) => WindowHeight / 2 - height / 2;
