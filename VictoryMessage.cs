@@ -57,13 +57,13 @@ namespace FormElements
             buttonClose = new Button();
             buttonClose.Text = "Close";
             buttonClose.Size = new Size(100, 30);
-            buttonClose.Location = new Point(this.ClientSize.Width / 4 - buttonClose.Width / 2, pictureBox.Bottom + 30);
+            buttonClose.Location = new Point(ClientSize.Width / 4 - buttonClose.Width / 2, pictureBox.Bottom + 30);
             buttonClose.Click += ButtonClose_Click;
 
             buttonReturnToMenu = new Button();
             buttonReturnToMenu.Text = "Return to Menu";
             buttonReturnToMenu.Size = new Size(150, 30);
-            buttonReturnToMenu.Location = new Point(this.ClientSize.Width * 3 / 4 - buttonReturnToMenu.Width / 2, pictureBox.Bottom + 30);
+            buttonReturnToMenu.Location = new Point(ClientSize.Width * 3 / 4 - buttonReturnToMenu.Width / 2, pictureBox.Bottom + 30);
             buttonReturnToMenu.Click += ButtonReturnToMenu_Click;
 
             Controls.Add(pictureBox);

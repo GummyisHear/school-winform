@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Label = System.Windows.Forms.Label;
 
 namespace FormElements
 {
@@ -20,7 +21,8 @@ namespace FormElements
 
         private ProgressBar _progressBar;
         private Timer _timer;
-        private int _timerMaxValue = 1000;
+        private int _timerMaxValue = 1000; // ainult muutub seadistes
+        private int _timerValue = 1000; // mäng muutub seda
         private int _timerInterval = 50;
         private int _timeLeft;
 
@@ -30,7 +32,8 @@ namespace FormElements
         {
             InitForm();
             AddTabs();
-            InitMenu();
+            InitPlayTab();
+            InitSettingsTab();
         }
 
         private void InitForm()
@@ -43,7 +46,7 @@ namespace FormElements
             MinimizeBox = true;
         }
 
-        private void InitMenu()
+        private void InitPlayTab()
         {
             _tabPage1.Controls.Clear();
 
@@ -51,14 +54,20 @@ namespace FormElements
 
             // Play button
             var playBtn = new Button();
-            playBtn.Text = "Play!";
+            playBtn.Text = "Mängi!";
             playBtn.Width = 125;
             playBtn.Height = 50;
             playBtn.Click += (sender, e) => InitGame();
-
             _tabPage1.Controls.Add(playBtn);
-
             playBtn.Location = new Point(CenterX(playBtn.Width), CenterY(playBtn.Height));
+
+            // label
+            var label = new Label();
+            label.Font = new Font(FontFamily.GenericMonospace, 36);
+            label.AutoSize = true;
+            label.Text = "Cat Clicker!";
+            _tabPage1.Controls.Add(label);
+            label.Location = new Point(CenterX(label.Width), playBtn.Location.Y - 100);
 
             ResumeLayout(true);
         }
@@ -74,24 +83,10 @@ namespace FormElements
             _tabControl.TabPages.Add(_tabPage1);
             _tabControl.TabPages.Add(_tabPage2);
 
-            _tabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
-
             Controls.Add(_tabControl);
         }
 
-        private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_tabControl.SelectedTab == _tabPage1)
-            {
-                InitMenu();
-            }
-            else if (_tabControl.SelectedTab == _tabPage2)
-            {
-                InitTab2();
-            }
-        }
-
-        private void InitTab2()
+        private void InitSettingsTab()
         {
             _tabPage2.Controls.Clear();
             SuspendLayout();
@@ -100,11 +95,11 @@ namespace FormElements
             ListBox listBox = new ListBox();
             listBox.Size = new Size(200, 100);
             listBox.Location = new Point(CenterX(200), 20);
-            listBox.Items.Add("Apple");
-            listBox.Items.Add("Banana");
-            listBox.Items.Add("Cherry");
-            listBox.Items.Add("Date");
-            listBox.Items.Add("Elderberry");
+            listBox.Items.Add("Õun");
+            listBox.Items.Add("Banaan");
+            listBox.Items.Add("Kirss");
+            listBox.Items.Add("Apelsin");
+            listBox.Items.Add("Jõhvikas");
 
             _tabPage2.Controls.Add(listBox);
 
@@ -188,6 +183,35 @@ namespace FormElements
             _tabPage2.Controls.Add(check3);
             _tabPage2.Controls.Add(check4);
 
+            // slider kiiruse muutumiseks
+            var trackBar = new TrackBar();
+            trackBar.Minimum = 300;
+            trackBar.Maximum = 5000;
+            trackBar.Value = _timerMaxValue;
+            trackBar.TickFrequency = 200;
+            trackBar.Size = new Size(200, 45);
+            trackBar.Location = new Point(CenterX(trackBar.Width), listBox.Location.Y + listBox.Height + 50);
+            _tabPage2.Controls.Add(trackBar);
+
+            var label = new Label();
+            label.Text = "Taimeri kiirus:";
+            label.AutoSize = true;
+            _tabPage2.Controls.Add(label);
+            label.Location = new Point(CenterX(label.Width), trackBar.Location.Y - label.Height - 10);
+
+            var trackLabel = new Label();
+            trackLabel.Text = $"{trackBar.Value} ms";
+            trackLabel.AutoSize = true;
+            trackLabel.Location = new Point(trackBar.Location.X + trackBar.Width, trackBar.Location.Y);
+            _tabPage2.Controls.Add(trackLabel);
+
+            trackBar.ValueChanged += (sender, args) =>
+            {
+                trackLabel.Text = $"{trackBar.Value} ms";
+                _timerMaxValue = trackBar.Value;
+                _timerValue = _timerMaxValue;
+            };
+
             ResumeLayout(true);
         }
 
@@ -266,10 +290,10 @@ namespace FormElements
             Score++;
             UpdateScore();
 
-            _timerMaxValue -= 20;
-            _timerMaxValue = Math.Max(400, _timerMaxValue);
-            _timeLeft = _timerMaxValue;
-            _progressBar.Value = _timerMaxValue;
+            _timerValue = (int)(_timerValue * 0.95f);
+            _timerValue = Math.Max(_timerMaxValue / 2, _timerValue);
+            _timeLeft = _timerValue;
+            _progressBar.Value = _timerValue;
 
             if (Random.NextDouble() < 0.05)
             {
@@ -279,15 +303,21 @@ namespace FormElements
                 customMsgBox.ReturnToMenuClicked += (s, ev) =>
                 {
                     Score = 0;
-                    Controls.Clear();
-                    AddTabs();
-                    _tabControl.SelectedTab = _tabPage1;
-                    InitMenu();
+                    ReturnMainMenu();
                 };
                 customMsgBox.ShowDialog();
 
                 _timer.Start();
             }
+        }
+
+        private void ReturnMainMenu()
+        {
+            Controls.Clear();
+            AddTabs();
+            _tabControl.SelectedTab = _tabPage1;
+            InitPlayTab();
+            InitSettingsTab();
         }
 
         private void ShowFailWindow()
@@ -297,15 +327,12 @@ namespace FormElements
             MessageBox.Show($"Sa kaotasid! Finaalne skoor on: {Score}", "Kaotas", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             Score = 0;
-            Controls.Clear();
-            AddTabs();
-            _tabControl.SelectedTab = _tabPage1;
-            InitMenu();
+            ReturnMainMenu();
         }
 
         private void UpdateScore()
         {
-            Label.Text = $"{Score} Clicks";
+            Label.Text = $"{Score} Klikk";
         }
 
         private int CenterY(int height) => WindowHeight / 2 - height / 2;

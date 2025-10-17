@@ -31,3 +31,6 @@ C:\Users\opilane\Source\Repos\Poldsaar\school-winform\obj\Debug\FormElements.csp
 C:\Users\opilane\Source\Repos\Poldsaar\school-winform\obj\Debug\FormElements.csproj.CoreCompileInputs.cache
 C:\Users\opilane\Source\Repos\Poldsaar\school-winform\obj\Debug\FormElements.exe
 C:\Users\opilane\Source\Repos\Poldsaar\school-winform\obj\Debug\FormElements.pdb
+C:\Users\opilane\source\repos\Poldsaar\school-winform\bin\Debug\FormElements.exe.config
+C:\Users\opilane\source\repos\Poldsaar\school-winform\bin\Debug\FormElements.exe
+C:\Users\opilane\source\repos\Poldsaar\school-winform\bin\Debug\FormElements.pdb
